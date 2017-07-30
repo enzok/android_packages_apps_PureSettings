@@ -32,6 +32,12 @@
             android:defaultValue="@bool/def_battery_light_pulse"
             android:dependency="battery_light_enabled" />
 
+        <com.abc.settings.preferences.SystemSettingSwitchPreference
+            android:key="battery_light_allow_on_dnd"
+            android:title="@string/battery_light_allow_on_dnd_title"
+            android:dependency="battery_light_enabled"
+            android:persistent="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

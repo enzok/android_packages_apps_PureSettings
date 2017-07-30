@@ -46,6 +46,8 @@ public class BatteryLightSettings extends SettingsPreferenceFragment implements
     private static final String REALLY_FULL_COLOR_PREF = "really_full_color";
     private static final String LIGHT_ENABLED_PREF = "battery_light_enabled";
     private static final String PULSE_ENABLED_PREF = "battery_light_pulse";
+    private static final String BATTERY_DND_PREF = "battery_light_allow_on_dnd";
+
 
     private PreferenceGroup mColorPrefs;
     private ApplicationLightPreference mLowColorPref;
@@ -54,6 +56,8 @@ public class BatteryLightSettings extends SettingsPreferenceFragment implements
     private ApplicationLightPreference mReallyFullColorPref;
     private SystemSettingSwitchPreference mLightEnabledPref;
     private SystemSettingSwitchPreference mPulseEnabledPref;
+    private SystemSettingSwitchPreference mDndPref;
+
 
     private static final int MENU_RESET = Menu.FIRST;
 
@@ -70,6 +74,7 @@ public class BatteryLightSettings extends SettingsPreferenceFragment implements
         if (!getResources().getBoolean(com.android.internal.R.bool.config_ledCanPulse)) {
             generalCategory.removePreference(prefSet.findPreference(PULSE_ENABLED_PREF));
         }
+	mDndPref = (SystemSettingSwitchPreference) prefSet.findPreference(BATTERY_DND_PREF);
 
         // Does the Device support changing battery LED colors?
         if (getResources().getBoolean(com.android.internal.R.bool.config_multiColorBatteryLed)) {
@@ -191,9 +196,11 @@ public class BatteryLightSettings extends SettingsPreferenceFragment implements
         final Resources res = getResources();
         final boolean batteryLightEnabled = res.getBoolean(R.bool.def_battery_light_enabled);
         final boolean batteryLightPulseEnabled = res.getBoolean(R.bool.def_battery_light_pulse);
+        final boolean batteryLightDNDEnabled = res.getBoolean(R.bool.def_battery_light_dnd);
 
         if (mLightEnabledPref != null) mLightEnabledPref.setChecked(batteryLightEnabled);
         if (mPulseEnabledPref != null) mPulseEnabledPref.setChecked(batteryLightPulseEnabled);
+	if (mDndPref != null) mDndPref.setChecked(batteryLightDNDEnabled);
 
         resetColors();
     }
